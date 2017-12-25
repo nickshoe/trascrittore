@@ -1,0 +1,29 @@
+{
+  "name": "trascrittore",
+  "version": "0.0.1",
+  "description": "A script that converts documents photos into text files, using Google Vision API OCR feature\"",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nickshoe/trascrittore.git"
+  },
+  "author": "Nicolò Scarpa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nickshoe/trascrittore/issues"
+  },
+  "homepage": "https://github.com/nickshoe/trascrittore#readme",
+  "devDependencies": {
+    "eslint": "^4.14.0",
+    "eslint-config-standard": "^11.0.0-beta.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1"
+  },
+  "dependencies": {}
+}
