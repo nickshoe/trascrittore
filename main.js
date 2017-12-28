@@ -1,16 +1,27 @@
 const fs = require('fs');
+const path = require('path');
 const https = require('https');
 
 var config = JSON.parse(fs.readFileSync('config.json', 'utf8'));
 const API_KEY = config.api_key;
 
-const imagesFolder = './images/';
-const textsFolder = './texts/';
+const imagesFolderPath = './images/';
+const textsFolderPath = './texts/';
 
-fs.readdirSync(imagesFolder).forEach((fileName) => {
-  console.log(fileName);
+createDirIfNotExists(imagesFolderPath);
+createDirIfNotExists(textsFolderPath);
 
-  var filePath = imagesFolder + fileName;
+fs.readdirSync(imagesFolderPath).forEach((fileName) => {
+  var extName = path.extname(fileName);
+  if (extName !== '.jpg') {
+    console.log(fileName + ' is not a jpg file, skipping');
+
+    return;
+  }
+
+  console.log(fileName + ' processing');
+
+  var filePath = imagesFolderPath + fileName;
   fs.open(filePath, 'r', function (status, fd) {
     if (status) {
       console.log(status.message);
@@ -47,7 +58,7 @@ fs.readdirSync(imagesFolder).forEach((fileName) => {
         var text = responseBody.responses[0].fullTextAnnotation.text;
         console.log(filePath + ' text extracted');
 
-        var textFileDestPath = textsFolder + fileName + '.txt';
+        var textFileDestPath = textsFolderPath + fileName + '.txt';
         fs.writeFile(textFileDestPath, text, function (err) {
           if (err) {
             console.error(err);
@@ -76,3 +87,9 @@ fs.readdirSync(imagesFolder).forEach((fileName) => {
     req.end();
   });
 });
+
+function createDirIfNotExists (path) {
+  if (!fs.existsSync(path)) {
+    fs.mkdirSync(path);
+  }
+}
