@@ -71,6 +71,10 @@ fs.readdirSync(imagesFolderPath).forEach((fileName) => {
       });
     });
 
+    req.on('error', function (error) {
+      console.log(error);
+    });
+
     var imageContentBae64 = data.toString('base64');
     req.write(JSON.stringify({
       requests: [{
